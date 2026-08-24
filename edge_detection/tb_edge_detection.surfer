@@ -1,1 +1,11 @@
-scope_add tb_edge_detection
+divider_add Control
+variable_add tb_edge_detection.clk
+variable_add tb_edge_detection.input
+
+divider_add Output
+variable_add tb_edge_detection.bang
+
+divider_add DUT internals
+variable_add tb_edge_detection.dut.safe
+variable_add tb_edge_detection.dut.bang
+variable_add tb_edge_detection.dut.hehe

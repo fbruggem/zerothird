@@ -1,1 +1,11 @@
-scope_add tb_counter
+divider_add Control
+variable_add tb_counter.clk
+variable_add tb_counter.reset
+variable_add tb_counter.enable
+
+divider_add Output
+variable_add tb_counter.counter[7:0]
+
+divider_add DUT internals
+variable_add tb_counter.dut.num[7:0]
+variable_add tb_counter.dut.number[7:0]

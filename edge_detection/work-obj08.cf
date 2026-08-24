@@ -1,7 +1,0 @@
-v 4
-file . "edge_detection.vhd" "84bdc1e1c0ad46c645e53e6697204eaf375b9342" "20260824135749.380":
-  entity edge_detection at 1( 0) + 0 on 119;
-  architecture rtl of edge_detection at 15( 290) + 0 on 120;
-file . "tb_edge_detection.vhd" "b05b5d90819dbc98cd8da692a93c5683fd5ceae8" "20260824135749.380":
-  entity tb_edge_detection at 1( 0) + 0 on 121;
-  architecture sim of tb_edge_detection at 8( 129) + 0 on 122;

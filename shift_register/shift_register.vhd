@@ -9,12 +9,7 @@ entity shift_register is
       shift_output: out std_logic;
       reset: in std_logic := '0';
       enable: in std_logic := '0';
-      -- set: in std_logic := '0';
-      buf: buffer std_logic := '0'
-      -- bits: buffer std_logic_vector(7 downto 0);
-      -- enable matrix
-      -- inside measurment
-      -- out readable whole thing
+      buf: buffer std_logic_vector(7 downto 0) := (others => '0')
   );
 end entity shift_register;
 
@@ -25,11 +20,11 @@ begin
       begin
         if rising_edge(clk) then
           if reset = '1' then
-            buf <= '0';
+            buf <= (others => '0');
             shift_output <= '0';
           elsif enable = '1' then 
-            buf <= shift_input;
-            shift_output <= buf;
+            buf <= buf(6 downto 0) & shift_input;
+            shift_output <= buf(7);
           end if;
         end if;
 
