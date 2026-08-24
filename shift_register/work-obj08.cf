@@ -1,0 +1,7 @@
+v 4
+file . "shift_register.vhd" "5623714e1f8fbc2ee312b2d9b23ddb274a1ffc16" "20260824143039.497":
+  entity shift_register at 1( 0) + 0 on 55;
+  architecture rtl of shift_register at 21( 505) + 0 on 56;
+file . "tb_shift_register.vhd" "52be6fa3606e8b7e495a69fde4fbeaf5e9795089" "20260824143039.497":
+  entity tb_shift_register at 1( 0) + 0 on 57;
+  architecture sim of tb_shift_register at 8( 129) + 0 on 58;
