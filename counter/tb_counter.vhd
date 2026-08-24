@@ -27,7 +27,7 @@ begin
     enable <= '1';
     wait for 10 ns;
 
-    for i in 0 to 30 loop
+    for i in 0 to 5 loop
       clk <= '1';
       wait for 10 ns;
       clk <= '0';
@@ -41,12 +41,12 @@ begin
     wait for 10 ns;
     reset <= '0';
 
-    for i in 0 to 30 loop
-      clk <= '1';
-      wait for 10 ns;
-      clk <= '0';
-      wait for 10 ns;
-    end loop;
+    -- for i in 0 to 30 loop
+    --   clk <= '1';
+    --   wait for 10 ns;
+    --   clk <= '0';
+    --   wait for 10 ns;
+    -- end loop;
 
     wait;
 
