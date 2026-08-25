@@ -1,0 +1,9 @@
+divider_add Control
+variable_add tb_uart.clk
+variable_add tb_uart.serial
+
+divider_add Buffers
+variable_add tb_uart.sender.shift_register.buf
+item_set_format Binary
+variable_add tb_uart.receiver.shift_register.buf
+item_set_format Binary

@@ -4,8 +4,8 @@ variable_add tb_counter.reset
 variable_add tb_counter.enable
 
 divider_add Output
-variable_add tb_counter.counter[7:0]
+variable_add tb_counter.counter
 
-divider_add DUT internals
-variable_add tb_counter.dut.num[7:0]
-variable_add tb_counter.dut.number[7:0]
+divider_add Internals
+variable_add tb_counter.dut.num
+variable_add tb_counter.dut.number

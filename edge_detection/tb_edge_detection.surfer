@@ -5,7 +5,7 @@ variable_add tb_edge_detection.input
 divider_add Output
 variable_add tb_edge_detection.bang
 
-divider_add DUT internals
+divider_add Internals
 variable_add tb_edge_detection.dut.safe
 variable_add tb_edge_detection.dut.bang
 variable_add tb_edge_detection.dut.hehe

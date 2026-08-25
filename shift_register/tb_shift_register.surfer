@@ -6,4 +6,5 @@ variable_add tb_shift_register.enable
 divider_add Data
 variable_add tb_shift_register.shift_input
 variable_add tb_shift_register.dut.buf
+item_set_format Binary
 variable_add tb_shift_register.shift_output
