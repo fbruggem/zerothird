@@ -9,7 +9,12 @@ entity shift_register is
       shift_output: out std_logic;
       reset: in std_logic := '0';
       enable: in std_logic := '0';
-      buf: buffer std_logic_vector(7 downto 0) := "10100101"
+      buf: buffer std_logic_vector(7 downto 0) := (others => '0');
+      set: in std_logic := '0';
+      buf_in: in std_logic_vector(7 downto 0) := (others => '0');
+      get: in std_logic := '0';
+      buf_out: out std_logic_vector(7 downto 0) := (others => '0')
+      
   );
 end entity shift_register;
 
@@ -22,6 +27,10 @@ begin
           if reset = '1' then
             buf <= (others => '0');
             shift_output <= '0';
+          elsif set = '1' then 
+            buf <= buf_in;
+          elsif get = '1' then 
+            buf_out <= buf;
           elsif enable = '1' then 
             buf <= buf(6 downto 0) & shift_input;
             shift_output <= buf(7);

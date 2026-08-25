@@ -11,7 +11,11 @@ entity uart_sender is
       shift_register_reset: buffer std_logic := '0';
       shift_register_enable: buffer std_logic := '0';
       shift_register_input: buffer std_logic := '0';
-      shift_register_output: buffer std_logic
+      shift_register_output: buffer std_logic;
+      set: in std_logic := '0';
+      buf_in: in  std_logic_vector(7 downto 0) := (others => '0');
+      get: in std_logic := '0';
+      buf_out: out  std_logic_vector(7 downto 0) := (others => '0')
       
   );
 end entity uart_sender;
@@ -22,6 +26,7 @@ architecture rtl of uart_sender is
   signal state: state_t := IDLE;
   signal time_counter: unsigned(7 downto 0) := (others => '0');
   signal bits_sent_counter: unsigned(7 downto 0) := (others => '0');
+  
   -- State 1 - make it possible to read values into you - when you get the signal to send something switch into state 2
   -- State 2 - send over the bits one by one and go back to state 1
 begin
@@ -38,7 +43,11 @@ begin
       shift_input => shift_register_input, 
       shift_output => shift_register_output, 
       reset => shift_register_reset,
-      enable => shift_register_enable
+      enable => shift_register_enable,
+      set => set,
+      buf_in => buf_in,
+      get => get,
+      buf_out => buf_out
     );
 
     process(clk)

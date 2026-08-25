@@ -12,13 +12,18 @@ architecture sim of tb_uart is
       signal done: std_logic := '0';
       signal send: std_logic := '0';
 
+      signal set:  std_logic := '0';
+      signal buf_sender: std_logic_vector(7 downto 0);
+      signal buf_receiver: std_logic_vector(7 downto 0);
 begin
 
   sender : entity work.uart_sender
     port map (
       clk => clk,
       serial_out => serial,
-      send => send
+      send => send,
+      buf_in => buf_sender,
+      set => set
     );
     
   receiver : entity work.uart_receiver
@@ -30,6 +35,18 @@ begin
 
   stimulus : process
   begin
+    
+    buf_sender <= "10101010";
+    set <= '1';
+
+    wait for 10 ns;
+    clk <= '1';
+    wait for 10 ns;
+    clk <= '0';
+
+    wait for 10 ns;
+    set <= '0';
+
     wait for 10 ns;
 
     send <= '1';

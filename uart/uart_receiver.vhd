@@ -11,6 +11,7 @@ entity uart_receiver is
       shift_register_input: buffer std_logic;
       shift_register_output: buffer std_logic := '0';
       done: out std_logic := '0'
+
   );
 end entity uart_receiver;
 
@@ -20,6 +21,10 @@ architecture rtl of uart_receiver is
   signal state: state_t := IDLE;
   signal time_counter: unsigned(7 downto 0) := (others => '0');
   signal bits_sent_counter: unsigned(7 downto 0) := (others => '0');
+  signal set:  std_logic := '0';
+  signal buf_in:  std_logic_vector(7 downto 0) := (others => '0');
+  signal get:  std_logic := '0';
+  signal buf_out:  std_logic_vector(7 downto 0) := (others => '0');
 
 begin
 
@@ -29,7 +34,9 @@ begin
       shift_input => serial_in, 
       shift_output => shift_register_output, 
       reset => shift_register_reset,
-      enable => shift_register_enable
+      enable => shift_register_enable,
+      get => done,
+      buf_out => buf_out
     );
 
     process(clk)
@@ -73,22 +80,21 @@ begin
 
             else
                 state <= STOP;
+                done <= '1';
                 time_counter <= (others => '0');
             end if;
 
         elsif state = STOP then
 
+          done <= '0';
           if time_counter = 5 then 
             time_counter <= (others => '0');
             state <= IDLE;
-            done <= '1';
           else 
             time_counter <= time_counter + 1;
           end if;
+
         end if;
-        -- so i have 2 states
-        -- State 1 -> wait for a low on the wire then sync clock and switch state
-        -- State 2 -> read current bit into the shift register until you got 8 and switch an "im done bit" and go back to the state 1
 
       end if;
 
