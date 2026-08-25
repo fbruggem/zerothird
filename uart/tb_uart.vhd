@@ -9,6 +9,7 @@ architecture sim of tb_uart is
 
       signal clk:  std_logic := '0';
       signal serial: std_logic;
+      signal done: std_logic := '0';
       signal send: std_logic := '0';
 
 begin
@@ -23,7 +24,8 @@ begin
   receiver : entity work.uart_receiver
     port map (
       clk => clk,
-      serial_in => serial
+      serial_in => serial,
+      done => done
     );
 
   stimulus : process
@@ -32,13 +34,19 @@ begin
 
     send <= '1';
     wait for 10 ns;
+    clk <= '1';
+    wait for 10 ns;
+    clk <= '0';
+    wait for 10 ns;
+    send <= '0';
 
-    for i in 0 to 300 loop
+    while done = '0' loop
       clk <= '1';
       wait for 10 ns;
       clk <= '0';
       wait for 10 ns;
     end loop;
+
 
     wait;
 
