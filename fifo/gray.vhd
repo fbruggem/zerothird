@@ -1,10 +1,3 @@
---------------------------------------------------------------------------------
--- gray_pkg.vhd — binary <-> Gray conversion.
---
--- Unconstrained parameters, so one definition covers every width. Works for
--- your unsigned(3 downto 0) and for unsigned(ADDR_W downto 0) unchanged.
---------------------------------------------------------------------------------
-
 library ieee;
   use ieee.std_logic_1164.all;
   use ieee.numeric_std.all;

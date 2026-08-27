@@ -6,10 +6,6 @@ library work;
   use work.gray_pkg.all;
 
 entity fifo is
-  generic (
-    DATA_W : natural := 50;
-    ADDR_W : natural := 10
-  );
   port (
     wclk   : in    std_logic;
     wrst_n : in    std_logic;
@@ -64,7 +60,7 @@ begin
           gray_rptr_sync <= r_sync;
 
           if wfull = '1' then
-            if (gray_wptr_desync(2 downto 0) = gray_rptr_sync(2 downto 0)) and (gray_wptr_desync(3) /= gray_rptr_sync(3)) then
+          if (to_gray(wptr)(3) /= gray_rptr_sync(3)) and (to_gray(wptr)(2) /= gray_rptr_sync(2)) and (to_gray(wptr)(1 downto 0) = gray_rptr_sync(1 downto 0)) then
               wfull <= '1';
             else
               wfull <= '0';
@@ -74,7 +70,7 @@ begin
             data(to_integer(wptr(2 downto 0))) <= wvalue;
             wptr <= wptr +1;
 
-            if (to_gray(wptr + 1)(2 downto 0) = gray_rptr_sync(2 downto 0)) and (to_gray(wptr + 1)(3) /= gray_rptr_sync(3)) then
+          if (to_gray(wptr + 1)(3) /= gray_rptr_sync(3)) and (to_gray(wptr + 1)(2) /= gray_rptr_sync(2)) and (to_gray(wptr + 1)(1 downto 0) = gray_rptr_sync(1 downto 0)) then
               wfull <= '1';
             else
               wfull <= '0';
@@ -89,25 +85,27 @@ begin
     process(rclk)
       begin
 
+        if rising_edge(rclk) then
           r_sync <= gray_rptr_desync;
 
           gray_wptr_sync <= w_sync;
 
-        if rising_edge(rclk) then
+          if rempty = '1' then
             if gray_rptr_desync = gray_wptr_sync then
               rempty <= '1';
             else
               rempty <= '0';
             end if;
-        elsif rd_en = '1' then 
-          rvalue <= data(to_integer(rptr(2 downto 0)));
-          rptr <= rptr + 1;
+          elsif rd_en = '1' then 
+            rvalue <= data(to_integer(rptr(2 downto 0)));
+            rptr <= rptr + 1;
 
-            if to_gray(rptr +1) = gray_wptr_sync then
-              rempty <= '1';
-            else
-              rempty <= '0';
-            end if;
+              if to_gray(rptr +1) = gray_wptr_sync then
+                rempty <= '1';
+              else
+                rempty <= '0';
+              end if;
+          end if;
         end if;
 
     end process;
