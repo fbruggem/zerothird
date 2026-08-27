@@ -36,7 +36,7 @@ begin
   stimulus : process
   begin
     
-    buf_sender <= "10101010";
+    buf_sender <= "10111011";
     set <= '1';
 
     wait for 10 ns;
