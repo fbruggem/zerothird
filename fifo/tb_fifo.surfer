@@ -1,0 +1,54 @@
+# surfer startup layout for tb_fifo
+# used by:  make show   ->  surfer -c tb_fifo.surfer tb_fifo.vcd
+#
+# order: what the test is doing, then the scoreboard, then the two
+# clock domains, and the dut internals last.
+
+timeline_add
+
+divider_add Testbench
+variable_add tb_fifo.phase
+item_set_format UnsignedDecimal
+variable_add tb_fifo.n_written
+item_set_format UnsignedDecimal
+variable_add tb_fifo.n_read
+item_set_format UnsignedDecimal
+variable_add tb_fifo.n_errors
+item_set_format UnsignedDecimal
+
+divider_add Scoreboard
+variable_add tb_fifo.expected
+variable_add tb_fifo.got
+variable_add tb_fifo.check_ok
+
+divider_add WriteSide
+variable_add tb_fifo.wclk
+variable_add tb_fifo.wrst_n
+variable_add tb_fifo.wr_en
+variable_add tb_fifo.wvalue
+variable_add tb_fifo.wfull
+
+divider_add ReadSide
+variable_add tb_fifo.rclk
+variable_add tb_fifo.rrst_n
+variable_add tb_fifo.rd_en
+variable_add tb_fifo.rvalue
+variable_add tb_fifo.rempty
+
+divider_add Internals
+variable_add tb_fifo.dut.data
+item_set_format Binary
+variable_add tb_fifo.dut.wptr
+item_set_format UnsignedDecimal
+variable_add tb_fifo.dut.rptr
+item_set_format UnsignedDecimal
+variable_add tb_fifo.dut.gray_wptr_desync
+item_set_format Binary
+variable_add tb_fifo.dut.gray_wptr_sync
+item_set_format Binary
+variable_add tb_fifo.dut.gray_rptr_desync
+item_set_format Binary
+variable_add tb_fifo.dut.gray_rptr_sync
+item_set_format Binary
+
+zoom_fit
